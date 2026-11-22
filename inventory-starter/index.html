@@ -1,1 +1,324 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StockNest | Inventory</title><link rel="stylesheet" href="css/style.css"></head><body><div class="app"><aside><h2>◈ StockNest</h2><p class="muted">Inventory workspace</p><nav><button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="products">Products</button><button class="nav" data-page="categories">Categories</button><button class="nav" data-page="stock">Stock Operations</button><button class="nav" data-page="history">Transactions</button><button class="nav" data-page="reports">Reports</button></nav></aside><main><header><div><h1 id="heading">Dashboard</h1><p id="subtitle">Overview of your inventory</p></div><span class="pill">Frontend learning project</span></header><section id="dashboard" class="page active"><div class="stats"><article><small>Products</small><h2 id="stat-products">—</h2></article><article><small>Units in stock</small><h2 id="stat-units">—</h2></article><article><small>Inventory value</small><h2 id="stat-value">—</h2></article><article><small>Low stock</small><h2 id="stat-low">—</h2></article></div><div class="panel"><h3>Low-stock alerts</h3><div id="alerts" class="muted">Student task: generate alerts dynamically.</div></div></section><section id="products" class="page"><div class="panel"><div class="toolbar"><h3>Products</h3><button id="toggle-form" class="primary">+ Add product</button></div><div id="product-form-wrap" hidden><form id="product-form" class="form-grid"><label>Name<input id="name" required maxlength="70" placeholder="Product name"></label><label>Category<select id="category" required></select></label><label>Price (₹)<input id="price" type="number" min="0" step="0.01" required></label><label>Quantity<input id="quantity" type="number" min="0" step="1" required></label><label>Minimum stock<input id="minimum" type="number" min="0" step="1" required></label><label>Supplier<input id="supplier" placeholder="Optional"></label><button type="submit" class="primary">Save product</button><button type="button" id="cancel-form">Cancel</button></form></div><div class="filters"><input id="search" placeholder="Search product names..."><select id="filter-category"><option value="all">All categories</option></select><select id="filter-status"><option value="all">All stock statuses</option><option value="in">In stock</option><option value="low">Low stock</option><option value="out">Out of stock</option></select></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Product</th><th>Category</th><th>Price</th><th>Qty</th><th>Min</th><th>Status</th><th>Actions</th></tr></thead><tbody id="product-rows"></tbody></table></div></div></section><section id="categories" class="page"><div class="panel"><h3>Categories</h3><form id="category-form" class="inline-form"><input id="new-category" placeholder="New category name" required><button class="primary">Add category</button></form><ul id="category-list"></ul><p class="muted">Student task: enable safe category deletion.</p></div></section><section id="stock" class="page"><div class="panel"><h3>Stock In / Stock Out</h3><form id="stock-form" class="form-grid"><label>Product<select id="stock-product" required></select></label><label>Operation<select id="stock-type"><option value="in">Stock In</option><option value="out">Stock Out</option></select></label><label>Quantity<input id="stock-qty" type="number" min="1" step="1" required></label><label>Note<input id="stock-note" placeholder="Optional reason"></label><button class="primary">Update stock</button></form><p class="muted">Student task: implement the stock update and validation logic.</p></div></section><section id="history" class="page"><div class="panel"><h3>Transaction History</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Product</th><th>Operation</th><th>Quantity</th><th>Remaining</th><th>Note</th></tr></thead><tbody id="history-rows"><tr><td colspan="6">Student task: render transaction history.</td></tr></tbody></table></div></div></section><section id="reports" class="page"><div class="panel"><h3>Inventory Reports</h3><p class="muted">Student task: calculate category-wise totals and render a bar chart using HTML/CSS or Canvas.</p><div id="report-chart" class="chart-placeholder">Your chart goes here</div></div></section><p id="toast" role="status" aria-live="polite"></p></main></div><script src="js/data.js"></script><script src="js/app.js"></script><script src="js/todos.js"></script></body></html>
+<!-- EDITED FILE -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      StockNest | Inventory
+    </title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="app">
+      <aside>
+        <h2>
+          ◈ StockNest
+        </h2>
+        <p class="muted">
+          Inventory workspace
+        </p>
+        <nav>
+          <button class="nav active" data-page="dashboard">
+            Dashboard
+          </button>
+          <button class="nav" data-page="products">
+            Products
+          </button>
+          <button class="nav" data-page="categories">
+            Categories
+          </button>
+          <button class="nav" data-page="stock">
+            Stock Operations
+          </button>
+          <button class="nav" data-page="history">
+            Transactions
+          </button>
+          <button class="nav" data-page="reports">
+            Reports
+          </button>
+        </nav>
+      </aside>
+      <main>
+        <header>
+          <div>
+            <h1 id="heading">
+              Dashboard
+            </h1>
+            <p id="subtitle">
+              Overview of your inventory
+            </p>
+          </div>
+        </header>
+        <section id="dashboard" class="page active">
+          <div class="stats">
+            <article>
+              <small>
+                Products
+              </small>
+              <h2 id="stat-products">
+                —
+              </h2>
+            </article>
+            <article>
+              <small>
+                Units in stock
+              </small>
+              <h2 id="stat-units">
+                —
+              </h2>
+            </article>
+            <article>
+              <small>
+                Inventory value
+              </small>
+              <h2 id="stat-value">
+                —
+              </h2>
+            </article>
+            <article>
+              <small>
+                Low stock
+              </small>
+              <h2 id="stat-low">
+                —
+              </h2>
+            </article>
+          </div>
+          <div class="panel">
+            <h3>
+              Low-stock alerts
+            </h3>
+          </div>
+        </section>
+        <section id="products" class="page">
+          <div class="panel">
+            <div class="toolbar">
+            <h3>
+              Products
+            </h3>
+            <button id="toggle-form" class="primary">
+              + Add product
+            </button>
+          </div>
+          <div id="product-form-wrap" hidden>
+            <form id="product-form" class="form-grid">
+              <label>
+                Name
+                <input id="name" required maxlength="70" placeholder="Product name">
+              </label>
+              <label>
+                Category
+                <select id="category" required>
+                </select>
+              </label>
+              <label>
+                Price (₹)
+                <input id="price" type="number" min="0" step="0.01" required>
+              </label>
+              <label>
+                Quantity
+                <input id="quantity" type="number" min="0" step="1" required>
+              </label>
+              <label>
+                Minimum stock
+                <input id="minimum" type="number" min="0" step="1" required>
+              </label>
+              <label>
+                Supplier
+                <input id="supplier" placeholder="Optional">
+              </label>
+              <button type="submit" class="primary">
+                Save product
+              </button>
+              <button type="button" id="cancel-form">
+                Cancel
+              </button>
+            </form>
+          </div>
+          <div class="filters">
+            <input id="search" placeholder="Search product names...">
+            <select id="filter-category">
+              <option value="all">
+                All categories
+              </option>
+            </select>
+            <select id="filter-status">
+              <option value="all">
+                All stock statuses
+              </option><option value="in">
+                In stock
+              </option>
+              <option value="low">
+                Low stock
+              </option>
+              <option value="out">
+                Out of stock
+                  </option>
+                </select>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>
+                        Index
+                      </th>
+                      <th>
+                        Product
+                      </th>
+                      <th>
+                        Category
+                      </th>
+                      <th>
+                        Price
+                      </th>
+                      <th>
+                        Qty
+                      </th>
+                      <th>
+                        Min
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                      <th>
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="product-rows">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section id="categories" class="page">
+            <div class="panel">
+              <h3>
+                Categories
+              </h3>
+              <div class="category-actions">
+                <form id="category-form" class="inline-form">
+                  <input id="new-category" placeholder="New category name" required>
+                  <button type="submit" class="primary">
+                    Add category
+                  </button>
+                </form>
+                <div class="inline-form">
+                  <select id="remove-category" aria-label="Category to remove">
+                    <option value="">
+                      Select category
+                    </option>
+                  </select>
+                  <button type="button" id="remove-category-button" class="primary">
+                    Remove category
+                  </button>
+                </div>
+              </div>
+                <ul id="category-list">
+                </ul>
+              </div>
+            </section>
+          <section id="stock" class="page">
+            <div class="panel">
+              <h3>
+                Stock In / Stock Out
+              </h3>
+              <form id="stock-form" class="form-grid">
+                  <label>
+                    Product
+                    <select id="stock-product" required>
+                    </select>
+                    </label>
+                    <label>
+                      Operation
+                      <select id="stock-type">
+                        <option value="in">
+                          Stock In
+                          </option>
+                          <option value="out">
+                            Stock Out
+                          </option>
+                        </select>
+                      </label>
+                      <label>
+                        Quantity
+                        <input id="stock-qty" type="number" min="1" step="1" required>
+                      </label>
+                      <label>
+                        Note
+                        <input id="stock-note" placeholder="Optional reason">
+                      </label>
+                      <button type="button" id="update-stock" class="primary">
+                        Update stock
+                </button>
+              </form>
+                    </div>
+                  </section>
+                  <section id="history" class="page">
+                    <div class="panel">
+                      <h3>
+                        Transaction History
+                      </h3>
+                      <div class="table-wrap">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>
+                                Time
+                              </th>
+                              <th>
+                                Product
+                              </th>
+                              <th>
+                                Operation
+                              </th>
+                              <th>
+                                Quantity
+                              </th>
+                              <th>
+                                Remaining
+                              </th>
+                              <th>
+                                Note
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody id="history-rows">
+                            <tr>
+                              <td colspan="6">
+                                render transaction history.
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>
+                  <section id="reports" class="page">
+                    <div class="panel">
+                      <h3>
+                        Inventory Reports
+                      </h3>
+                      <div id="report-chart" class="chart-placeholder">
+                        Your chart goes here
+                      </div>
+                    </div>
+                  </section>
+                  <p id="toast" role="status" aria-live="polite">
+                  </p>
+                </main>
+              </div>
+              <script src="js/data.js">
+          </script>
+          <script src="js/app.js">
+          </script>
+          <script src="js/todos.js">
+          </script>
+        </section>
+      </main>    
+    </div>      
+ </body>
+</html>
